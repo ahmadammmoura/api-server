@@ -1,11 +1,11 @@
 # api-server
 
-[heruku app Url](https://ahmad-basic-api-server.herokuapp.com/)
+[heruku app Url](https://api-server-ahmad.herokuapp.com/)
 
-[dev branch deployed link](https://github.com/ahmadammmoura/basic-api-server/tree/dev)
+[dev branch link](https://github.com/ahmadammmoura/api-server/tree/dev)
 
-[action link](https://github.com/ahmadammmoura/basic-api-server/actions)
+[action link](https://github.com/ahmadammmoura/api-server/actions)
 
 ### UML
 
-![uml](img/lab3.jpg)
+![uml](img/lab4.jpg)
