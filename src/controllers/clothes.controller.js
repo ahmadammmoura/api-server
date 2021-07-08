@@ -3,10 +3,12 @@
 const InterFace = require('../Models/Interface.modle');
 const ClothesModal = require('../Models/Clothes.modle');
 const clothes = new InterFace(ClothesModal);
+const modelName = 'clothes';
 
 const getClothes = async (req, res, next) => {
   try {
-    const data = await clothes.read();
+    const id = req.params.id;
+    const data = await clothes.read(modelName,id);
     res.json(data);
   } catch (err) {
     next(err);
@@ -16,7 +18,7 @@ const createClothes = async (req, res, next) => {
   try {
     const data = req.body;
 
-    const newClothes = await clothes.create(data);
+    const newClothes = await clothes.create(modelName,data);
     res.json(newClothes);
   } catch (err) {
     next(err);
@@ -27,7 +29,7 @@ const updateClothes = async (req, res, next) => {
     const id = req.params.id;
     const obj = req.body;
 
-    const doc = await clothes.update(id, obj);
+    const doc = await clothes.update(modelName,id, obj);
 
     console.log(id, obj, doc);
     res.json(doc);
@@ -38,7 +40,7 @@ const updateClothes = async (req, res, next) => {
 const deleteClothes = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const deleteFood = await clothes.delete(id);
+    const deleteFood = await clothes.delete(modelName,id);
 
     res.json(deleteFood);
   } catch (err) {
