@@ -1,29 +1,33 @@
 'use strict';
-
+const pool = require('./pool');
 class Interface {
-  constructor(modal) {
-    this.modal = modal;
+  constructor(table) {
+    this.table = table;
   }
 
-  read(_id) {
-    if (_id) {
-      return this.modal.find({ _id });
+  read(name,id) {
+    if (id) {
+      const sql = `SELECT * FROM ${name} WHERE id=$1;`;
+      return pool.query(sql,[id]);
     } else {
-      return this.modal.find({});
+      return pool.query(`SELECT * FROM ${name};`);
     }
   }
 
-  create(obj) {
-    const doc = new this.modal(obj);
-    return doc.save();
+  create(name,obj) {
+    const id = Math.floor(Math.random()*10000);
+    // console.log(name,'ddddddddddddddddddddddddd');
+    const sql = `INSERT INTO ${name} (id,name,type) VALUES ($1,$2,$3) RETURNING *;`;
+    return pool.query(sql,[id,obj.name,obj.type]);
   }
 
-  update(_id, obj) {
-    return this.modal.findByIdAndUpdate(_id, obj, { new: true });
+  update(name,id, obj) {
+    const sql = `UPDATE ${name} SET name=$1,type=$2 WHERE id=$3 RETURNING *;`;
+    return pool.query(sql,[obj.name,obj.type,id] );
   }
 
-  delete(_id) {
-    return this.modal.findByIdAndDelete({ _id });
+  delete(name,id) {
+    return pool.query(`DELETE FROM ${name} WHERE id=$1 RETURNING *;`, [id]);
   }
 }
 
