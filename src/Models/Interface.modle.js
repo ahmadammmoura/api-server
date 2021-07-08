@@ -13,10 +13,11 @@ class Interface {
       return pool.query(`SELECT * FROM ${name};`);
     }
   }
-
   create(name,obj) {
     const id = Math.floor(Math.random()*10000);
     // console.log(name,'ddddddddddddddddddddddddd');
+
+    
     const sql = `INSERT INTO ${name} (id,name,type) VALUES ($1,$2,$3) RETURNING *;`;
     return pool.query(sql,[id,obj.name,obj.type]);
   }
